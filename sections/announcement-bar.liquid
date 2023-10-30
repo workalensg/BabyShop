@@ -19,7 +19,8 @@
 {% endif %}
 
 <div
-  class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
+  id="announcement-bar"
+        class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %} {% if section.settings.close %} close{% endif %}"
   {{ block.shopify_attributes }}
 >
   <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
@@ -33,6 +34,9 @@
         aria-label="{{ 'sections.header.announcement' | t }}"
         {{ block.shopify_attributes }}
       >
+        {%- if section.settings.close_announcements %}
+          <div class="icon-close" id="announcement-close">{% render 'icon-close-small' %}</div>
+          {% endif %}
         {%- if section.blocks.first.settings.text != blank -%}
           {%- if section.blocks.first.settings.link != blank -%}
             <a
@@ -57,7 +61,9 @@
         role="region"
         aria-roledescription="{{ 'sections.announcements.carousel' | t }}"
         aria-label="{{ 'sections.announcements.announcement_bar' | t }}"
-      >
+      >{%- if section.settings.close_announcements %}
+        <div class="icon-close" id="announcement-close">{% render 'icon-close-small' %}</div>
+          {% endif %}
         <div class="announcement-bar-slider slider-buttons">
           <button
             type="button"
@@ -68,7 +74,16 @@
           >
             {% render 'icon-caret' %}
           </button>
-          <div
+            <button
+                    type="button"
+                    class="slider-button slider-button--next"
+                    name="next"
+                    aria-label="{{ 'sections.announcements.next_announcement' | t }}"
+                    aria-controls="Slider-{{ section.id }}"
+            >
+                {% render 'icon-caret' %}
+            </button>
+            <div
             class="grid grid--1-col slider slider--everywhere"
             id="Slider-{{ section.id }}"
             aria-live="polite"
@@ -113,16 +128,7 @@
               </div>
             {%- endfor -%}
           </div>
-          <button
-            type="button"
-            class="slider-button slider-button--next"
-            name="next"
-            aria-label="{{ 'sections.announcements.next_announcement' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            {% render 'icon-caret' %}
-          </button>
-        </div>
+          </div>
       </slideshow-component>
       {%- if request.design_mode -%}
         <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
@@ -218,6 +224,25 @@
   </div>
 </div>
 
+<script src="{{ 'cookies.js' | asset_url }}" ></script>
+<script>
+
+    announcement_close = document.getElementById('announcement-close');
+    announcement_bar = document.getElementById('announcement-bar');
+
+    if(getCookie('_announcement_close') == 'true'){
+        announcement_bar.style.display = 'none';
+    }else{
+        announcement_bar.style.display = 'block';
+    }
+
+    announcement_close.addEventListener('click', (event) => {
+        announcement_bar.style.display = 'none';
+        setCookie('_announcement_close','true',{{ section.settings.change_show_announcements }});
+    });
+
+</script>
+
 {% schema %}
 {
   "name": "t:sections.announcement-bar.name",
@@ -232,6 +257,22 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "accent-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "close_announcements",
+      "default": true,
+      "label": "t:sections.announcement-bar.settings.close_announcements.label"
+    },
+    {
+    "type": "range",
+    "id": "change_show_announcements",
+    "min": 1,
+    "max": 14,
+    "step": 1,
+    "unit": "day",
+    "label": "t:sections.announcement-bar.settings.change_show_announcements.label",
+    "default": 2
     },
     {
       "type": "checkbox",

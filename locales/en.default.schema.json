@@ -450,6 +450,12 @@
         "auto_rotate": {
           "label": "Auto-rotate announcements"
         },
+        "close_announcements": {
+          "label": "Close Announcements"
+        },
+        "change_show_announcements": {
+          "label": "Don't show after clicking the close"
+        },
         "change_slides_speed": {
           "label": "Change every"
         },
@@ -1088,6 +1094,7 @@
         "show_line_separator": {
           "label": "Show separator line"
         },
+
         "header__1": {
           "content": "Color"
         },

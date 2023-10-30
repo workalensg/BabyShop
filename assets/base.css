@@ -2182,6 +2182,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
   flex-wrap: wrap;
   align-content: center;
   grid-area: announcements;
+  position: relative;
 }
 
 .announcement-bar .slider--everywhere {
@@ -2192,24 +2193,24 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .utility-bar__grid .announcement-bar-slider {
   width: 100%;
 }
-
-.utility-bar__grid .announcement-bar-slider {
-  width: 100%;
-}
-
+#announcement-bar{display: none;}
+.announcement-bar .icon-close{position: absolute;top:0;right: -3rem;width: 3rem;height: 100%;display: flex;align-items: center;justify-content: center;cursor: pointer;}
 .announcement-bar-slider,
 .announcement-bar-slider .slider {
   width: 100%;
 }
-
+.announcement-bar .slider-button--next,
+.announcement-bar .slider-button--prev{
+  color: rgba(var(--color-foreground), 1);
+  min-width: 22px;
+  width: 22px;
+}
 .announcement-bar .slider-button--next {
-  margin-right: -1.5rem;
-  min-width: 44px;
+  /*margin-right: -1.5rem;*/
 }
 
 .announcement-bar .slider-button--prev {
-  margin-left: -1.5rem;
-  min-width: 44px;
+  margin-left: -3rem;
 }
 
 .announcement-bar .slider-button--next:focus-visible,
