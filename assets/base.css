@@ -1211,6 +1211,7 @@ button.shopify-payment-button__button--unbranded,
   --border-offset: var(--buttons-border-offset); /* reduce radius edge artifacts */
   --border-opacity: calc(1 - var(--buttons-border-opacity));
   border-radius: var(--buttons-radius-outset);
+  border: var(--color-button);
   position: relative;
 }
 

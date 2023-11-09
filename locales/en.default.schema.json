@@ -125,16 +125,16 @@
           "label": "Text"
         },
         "button_background": {
-          "label": "Solid button background"
+          "label": "Button background"
         },
         "button_label": {
-          "label": "Solid button label"
+          "label": "Button label"
+        },
+        "secondary_button_background": {
+          "label": "Secondary button background"
         },
         "secondary_button_label": {
-          "label": "Outline button"
-        },
-        "shadow": {
-          "label": "Shadow"
+          "label": "Secondary button label"
         }
       }
     },
@@ -1920,6 +1920,32 @@
         }
       }
     },
+    "head-product": {
+      "name": "Head product",
+      "blocks": {
+        "title": {
+          "name": "Title"
+        },
+        "sku": {
+          "name": "SKU",
+          "settings": {
+            "text_style": {
+              "label": "Text style",
+              "options__1": {
+                "label": "Body"
+              },
+              "options__2": {
+                "label": "Subtitle"
+              },
+              "options__3": {
+                "label": "Uppercase"
+              }
+            }
+          }
+        }
+      },
+      "settings": {}
+    },
     "main-product": {
       "name": "Product information",
       "blocks": {
@@ -1943,11 +1969,11 @@
             }
           }
         },
-        "title": {
-          "name": "Title"
-        },
         "price": {
           "name": "Price"
+        },
+        "title": {
+          "name": "Title"
         },
         "inventory": {
           "name": "Inventory status",
